@@ -181,6 +181,18 @@ h1 {
 	align-self: start;
 }
 
+
+.card > .info {
+	color: #636363;
+	align-self: start;
+	font-size: small;
+	align-items: flex-start;
+}
+
+.card > .main {
+	padding: 0;
+}
+
 .rightbar {
 	display: grid;
 	grid-template-rows: 1fr auto 1fr;
