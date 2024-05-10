@@ -276,6 +276,20 @@ ul li > .creator {
 	align-self: center;
 }
 
+.balloon {
+	background-color: #373360;
+	border-radius: 25px;
+	width: 8.4em;
+	align-self: center;
+	color: white;
+	padding: 15;
+	border: 0;
+	box-shadow: 0px 10px 10px -12px #111;
+	font-weight: bold;
+	font-size: medium;
+}
+
+
 .container .header {
 	position: sticky;
 	background-color: white;
@@ -342,16 +356,5 @@ ul li > .creator {
 	color: black;
 	font-size: 25px;
 	text-align: start;
-}
-
-.balloon {
-	background-color: #373360;
-	border-radius: 25px;
-	width: 2.4em;
-	align-self: center;
-}
-
-.balloon > p {
-	font-size: medium;
 }
 
