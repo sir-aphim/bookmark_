@@ -267,6 +267,24 @@ form {
 	gap: 1rem;
 }
 
+.close {
+	padding: 0;
+	margin: 0;
+	background-color: transparent;
+	border: 0;
+	color: var(--clr);
+	position: absolute;
+	top: 10;
+	left: 85%;
+	font-size: large;
+	font-weight: bold;
+	width: 70;
+}
+
+.close:hover {
+	color: #9c8fff;
+}
+
 form input {
     width: 100%;
     padding: 12px;
@@ -305,7 +323,7 @@ form label span {
     padding: 2px;
 }
 
-.check-question {
+label[for='read'] {
 	display: flex;
 	flex-direction: column;
 	gap: .5rem;
@@ -322,15 +340,17 @@ form > h1 {
 
 #read {
 	height: 25;
-	margin: 0;
+	margin: 20;
+	align-self: center;
+	filter: hue-rotate(410deg) contrast(0.9) saturate(1.2);
 }
 
-.check-question > span {
+label[for='read'] > span {
 	color: black;
 	font-size: medium;
 	font-weight: normal;
+	width: 90%;
 }
-
 
 .balloon {
 	background-color: var(--clr);
