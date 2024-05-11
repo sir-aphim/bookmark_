@@ -1,5 +1,6 @@
 body,
 html {
+  --clr: #373360;
   height: 100%;
   margin: 0;
 }
@@ -109,12 +110,8 @@ dialog {
 }
 
 .sidebar {
-	background-color: #373360; 
+	background-color: var(--clr); 
 	grid-row: 1 / span 2;
-}
-
-.nav {
-  background-color: #642cde;
 }
 
 .article {
@@ -293,7 +290,7 @@ form label {
 
 label > input:focus + span {
     color: #373360;
-    font-size: 12px;
+    font-size: medium;
     transition: .3s;
     top: -10px;
 }
@@ -318,6 +315,11 @@ form label span {
 	justify-content: space-between;
 }
 
+form > h1 {
+	font-size: .7em;
+	margin-bottom: 1em;
+}
+
 #read {
 	height: 25;
 	margin: 0;
@@ -331,9 +333,9 @@ form label span {
 
 
 .balloon {
-	background-color: #373360;
+	background-color: var(--clr);
 	border-radius: 25px;
-	width: 8.4em;
+	width: auto;
 	align-self: center;
 	color: white;
 	padding: 15;
