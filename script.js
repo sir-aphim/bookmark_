@@ -1,4 +1,6 @@
-const uploadBook = document.querySelector('.balloon');
+const dialog = document.querySelector('dialog')
+const uploadBook = document.querySelector('button');
+const closeFormModal = document.querySelector('dialog > button.close')
 
 const myLibrary = [];
 
@@ -17,15 +19,21 @@ function addBookToLibrary() {
 }
 
 uploadBook.addEventListener("click", () => {
+    dialog.classList.add('fade-in')
+    dialog.showModal();
     console.log("ayoo")
-    let bookTitle = prompt("What is the name of the book?")
-    let bookAuthor = prompt("Who is the author of the book?")
-    let bookPages = prompt("How many pages does it have?")
+    // let bookTitle = prompt("What is the name of the book?")
+    // let bookAuthor = prompt("Who is the author of the book?")
+    // let bookPages = prompt("How many pages does it have?")
     title = bookTitle;
     author = bookAuthor
     pages = bookPages
     addBookToLibrary();
     console.log(myLibrary)
+});
+
+closeFormModal.addEventListener("click", () => {
+    dialog.close();
 });
 
 myLibrary.forEach(element => {
