@@ -260,6 +260,76 @@ img {
 	align-self: center;
 }
 
+form {
+	display: grid;
+	width: 400px;
+	background-color: rgba(255, 255, 255, 1);
+	padding: 20px;
+	border-radius: 12px;
+	box-shadow: 0px 0px 10px #fff;
+	gap: 1rem;
+}
+
+form input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid black;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    font-size: 16px;
+}
+
+form input:focus {
+    outline: none;
+    border-color: #394867;
+    transition: .3s;
+}
+
+form label {
+    position: relative;
+    height: 100%;
+    display: block;
+}
+
+label > input:focus + span {
+    color: #373360;
+    font-size: 12px;
+    transition: .3s;
+    top: -10px;
+}
+
+form label span {
+    font-size: medium;
+    position: absolute;
+    top: -7px;
+    left: 20px;
+    transition: .3s;
+    background-color: #fff;
+    padding: 2px;
+}
+
+.check-question {
+	display: flex;
+	flex-direction: column;
+	gap: .5rem;
+	margin-bottom: 1rem;
+	align-content: center;
+	align-content: center;
+	justify-content: space-between;
+}
+
+#read {
+	height: 25;
+	margin: 0;
+}
+
+.check-question > span {
+	color: black;
+	font-size: medium;
+	font-weight: normal;
+}
+
+
 .balloon {
 	background-color: #373360;
 	border-radius: 25px;
@@ -271,6 +341,7 @@ img {
 	box-shadow: 0px 10px 10px -12px #111;
 	font-weight: bold;
 	font-size: medium;
+	justify-self: center;
 }
 
 
