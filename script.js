@@ -18,7 +18,7 @@ function Book(title, author, release, pages, read) {
     this.read = read;
 }
 
-function addBookToLibrary(title, author, release, pages, read) { // since it is related to the object, we should include the paramaters
+function addBookToLibrary(title, author, release, pages, read) {
     const newBook = new Book(title, author, release, pages, read);
     myLibrary.push(newBook);
 }
@@ -31,16 +31,7 @@ newBook.addEventListener("click", () => {
 closeFormModal.addEventListener("click", () => {
     event.preventDefault();
     dialog.close();
-    console.log('x')
 });
-
-function createSVG(className, viewBox, pathData) {
-    const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-    svg.setAttribute("class", className);
-    svg.setAttribute("viewBox", viewBox);
-    svg.innerHTML = pathData;
-    return svg;
-}
 
 function createCard() {
     const newCard = document.createElement("div");
@@ -59,7 +50,7 @@ function createCard() {
     const eyePlusSVG = createSVG("project-option", "0 0 24 24", '<title>eye-plus-outline</title><path d="M12,4.5C7,4.5 2.73,7.61 1,12C2.73,16.39 7,19.5 12,19.5C12.36,19.5 12.72,19.5 13.08,19.45C13.03,19.13 13,18.82 13,18.5C13,18.14 13.04,17.78 13.1,17.42C12.74,17.46 12.37,17.5 12,17.5C8.24,17.5 4.83,15.36 3.18,12C4.83,8.64 8.24,6.5 12,6.5C15.76,6.5 19.17,8.64 20.82,12C20.7,12.24 20.56,12.45 20.43,12.68C21.09,12.84 21.72,13.11 22.29,13.5C22.56,13 22.8,12.5 23,12C21.27,7.61 17,4.5 12,4.5M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9M18,14.5V17.5H15V19.5H18V22.5H20V19.5H23V17.5H20V14.5H18Z" />');
    
     trashCanSVG.addEventListener("click", function() { // Add event listener to remove button
-        removeBook();
+        removeBook(title, author, release, pages, read);
         newCard.remove(); // Remove card from DOM
     });
 
@@ -69,9 +60,11 @@ function createCard() {
     titlePara.classList.add("title");
     infoPara.classList.add("info")
     mainCard.classList.add("main");
+
     projectOptions.appendChild(starPlusSVG); // Append star plus SVG to project options
     projectOptions.appendChild(trashCanSVG)
     projectOptions.appendChild(eyePlusSVG);
+
     newCard.appendChild(mainCard)
     cardsDiv.appendChild(newCard);
     mainCard.appendChild(titlePara)
@@ -79,7 +72,16 @@ function createCard() {
     newCard.appendChild(projectOptions)
   };
 
-  function removeBook(title, author, release, pages, read) {
+  function createSVG(className, viewBox, pathData) {
+    const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    svg.setAttribute("class", className);
+    svg.setAttribute("viewBox", viewBox);
+    svg.innerHTML = pathData;
+    return svg;
+}
+
+  function removeBook() {
+    // Find the book index in myLibrary array
     const index = myLibrary.findIndex(book => (
         book.title === title &&
         book.author === author &&
