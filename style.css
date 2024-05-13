@@ -113,7 +113,11 @@ dialog {
 dialog > form > #dialog-msg {
 	display: flex;
 	padding: 15 0 15 0;
-	
+	transition: .3s;
+}
+
+#dialog-msg:hover {
+	filter: invert(49%) sepia(55%) saturate(557%) hue-rotate(207deg) brightness(76%) contrast(92%);
 }
 
 form > #dialog-msg img {
