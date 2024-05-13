@@ -1,5 +1,6 @@
 body,
 html {
+  --hvr: #6d63bc;
   --clr: #373360;
   height: 100%;
   margin: 0;
@@ -107,6 +108,22 @@ dialog {
 	border-radius: 15px;
 	border-color: transparent;
 	box-shadow: 0px 10px 10px -12px #111;
+}
+
+dialog > form > #dialog-msg {
+	display: flex;
+	padding: 15 0 15 0;
+	
+}
+
+form > #dialog-msg img {
+	filter: none;
+}
+
+
+form > #dialog-msg h1 {
+	color: black;
+	font-size: math;
 }
 
 .sidebar {
@@ -279,10 +296,17 @@ form {
 	font-size: large;
 	font-weight: bold;
 	width: 70;
+	transition: all .1s ease-in-out;
+	cursor: pointer;
+	height: 45;
+	padding-bottom: 5px;
 }
 
 .close:hover {
-	color: #9c8fff;
+	color: var(--hvr);
+	transform: scale(1.1);
+	background-color: #eaeaea;
+	border-radius: 20px;
 }
 
 form input {
@@ -296,7 +320,7 @@ form input {
 
 form input:focus {
     outline: none;
-    border-color: #394867;
+    border-color: var(--hvr);
     transition: .3s;
 }
 
@@ -307,7 +331,7 @@ form label {
 }
 
 label > input:focus + span {
-    color: #373360;
+    color: var(--hvr);
     font-size: medium;
     transition: .3s;
     top: -10px;
@@ -364,8 +388,13 @@ label[for='read'] > span {
 	font-weight: bold;
 	font-size: medium;
 	justify-self: center;
+	transition: all .1s ease-in-out;
 }
 
+.balloon:hover {
+	background-color: var(--hvr);
+	transform: scale(1.1);
+}
 
 .container .header {
 	position: sticky;
