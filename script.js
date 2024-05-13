@@ -8,12 +8,6 @@ const newBook = document.querySelector('.balloon');
 const uploadBook = document.querySelector('input.balloon[type="submit"]');
 const closeFormModal = document.querySelector('button.close')
 
-let title = titleInputField.value;
-let author = authorInputField.value;
-let pages = pagesInputField.value;
-let release = releaseInputField.value;
-let read = readStatus.value;
-
 const myLibrary = [];
 
 function Book(title, author, release, pages, read) {
@@ -53,6 +47,7 @@ function createCard() {
     infoPara.textContent = `${pages} Pages`;
 
     newCard.classList.add("card");
+    newCard.classList.add("fade-in")
     titlePara.classList.add("title");
     infoPara.classList.add("info")
     mainCard.classList.add("main");
@@ -65,6 +60,13 @@ function createCard() {
 
 uploadBook.addEventListener("click", () => {
     event.preventDefault();
+
+    title = titleInputField.value;
+    author = authorInputField.value;
+    pages = pagesInputField.value;
+    release = releaseInputField.value;
+    read = readStatus.value;
+
     addBookToLibrary();
     createCard();
     console.log(title, author, pages, release, read)
