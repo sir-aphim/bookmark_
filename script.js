@@ -24,13 +24,19 @@ function addBookToLibrary(title, author, release, pages, read) {
 }
 
 newBook.addEventListener("click", () => {
-    dialog.classList.add('fade-in')
+    dialog.classList.remove('fade-out')
+    dialog.classList.add('fade-in');
     dialog.showModal();
 });
 
 closeFormModal.addEventListener("click", () => {
     event.preventDefault();
-    dialog.close();
+    dialog.classList.remove('fade-in')
+    dialog.classList.add('fade-out');
+
+    setTimeout(() => {
+        dialog.close();
+      }, 520);      
 });
 
 function createCard() {
@@ -97,6 +103,13 @@ function createCard() {
 }
 
 uploadBook.addEventListener("click", (event) => {
+    dialog.classList.remove('fade-in')
+    dialog.classList.add('fade-out');
+
+    setTimeout(() => {
+        dialog.close();
+      }, 520);      
+
     event.preventDefault();
 
     title = titleInputField.value;
@@ -108,7 +121,6 @@ uploadBook.addEventListener("click", (event) => {
     addBookToLibrary(title, author, release, pages, read);
     createCard(title, author, release, pages, read);
     console.log(myLibrary);
-    dialog.close();
 });
 
 
