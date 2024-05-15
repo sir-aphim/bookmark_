@@ -42,15 +42,15 @@ html {
 	animation-name: fadeInOpacity;
 	animation-iteration-count: 1;
 	animation-timing-function: ease-in;
-	animation-duration: .4s;
+	animation-duration: .3s;
 }
 
 .fade-out {
-	opacity: 1;
-	animation-name: fadeInOpacity;
+	opacity: 0;
+	animation-name: fadeOutOpacity;
 	animation-iteration-count: 1;
 	animation-timing-function: ease-in;
-	animation-duration: .4s;
+	animation-duration: .3s;
 }
 
 
@@ -107,7 +107,11 @@ p {
 dialog {
 	border-radius: 15px;
 	border-color: transparent;
-	box-shadow: 0px 10px 10px -12px #111;
+	box-shadow: 0px 0px 0px 100vh rgba(0, 0, 0, 0.15);
+}
+
+::backdrop {
+	opacity: 0;
 }
 
 dialog > form > #dialog-msg {
