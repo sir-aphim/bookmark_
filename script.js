@@ -57,7 +57,10 @@ function createCard() {
    
     trashCanSVG.addEventListener("click", function() { // Add event listener to remove button
         removeBook(title, author, release, pages, read);
-        newCard.remove(); // Remove card from DOM
+        fadeItem(newCard)
+        setTimeout(() => {
+            newCard.remove(); // Remove card from DOM
+        }, 520);
     });
 
     newCard.classList.add("card");
@@ -78,7 +81,7 @@ function createCard() {
     newCard.appendChild(projectOptions)
   };
 
-  function createSVG(className, viewBox, pathData) {
+function createSVG(className, viewBox, pathData) {
     const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
     svg.setAttribute("class", className);
     svg.setAttribute("viewBox", viewBox);
@@ -86,7 +89,7 @@ function createCard() {
     return svg;
 }
 
-  function removeBook() {
+function removeBook() {
     // Find the book index in myLibrary array
     const index = myLibrary.findIndex(book => (
         book.title === title &&
@@ -102,9 +105,13 @@ function createCard() {
     }
 }
 
+function fadeItem(item) {
+    item.classList.remove('fade-in');
+    item.classList.add('fade-out');
+};
+
 uploadBook.addEventListener("click", (event) => {
-    dialog.classList.remove('fade-in')
-    dialog.classList.add('fade-out');
+    fadeItem(dialog);
 
     setTimeout(() => {
         dialog.close();
