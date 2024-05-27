@@ -217,7 +217,7 @@ h1 {
 .cards {
 	display: grid;
 	gap: 15px;
-	grid-template-columns: repeat(6, 240px);
+	grid-template-columns: repeat(10, auto);
 }
 
 .cards > .card {
