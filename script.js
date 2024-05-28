@@ -18,9 +18,24 @@ function Book(title, author, release, pages, read) {
     this.read = read;
 }
 
+const index = myLibrary.length;
+
 function addBookToLibrary(title, author, release, pages, read) {
     const newBook = new Book(title, author, release, pages, read);
+    newBook.index = myLibrary.length; // Assign index property
     myLibrary.push(newBook);
+}
+
+
+function removeBook(index) {
+    myLibrary.splice(index, 1); // Remove book from myLibrary array
+    updateIndexes(); // Update indexes after removal
+}
+
+function updateIndexes() {
+    myLibrary.forEach((book, index) => {
+        book.index = index; // Update index property for each book
+    });
 }
 
 newBook.addEventListener("click", () => {
@@ -40,6 +55,9 @@ closeFormModal.addEventListener("click", () => {
 });
 
 function createCard() {
+    newBook.index = myLibrary.length - 1; // Assign index property
+    console.log("Creating card for book at index:", newBook.index);
+
     const newCard = document.createElement("div");
     const mainCard = document.createElement("div")
     const titlePara = document.createElement("p")
@@ -78,8 +96,11 @@ function createCard() {
         projectOptions.appendChild(eyeCheckSVG);
     } else {
         projectOptions.appendChild(eyePlusSVG);
-    };
-
+    }
+    
+    // Add event listeners for eye icons
+    handleEyeClick(eyePlusSVG, eyeCheckSVG, projectOptions, newBook.index);
+    
     newCard.appendChild(mainCard)
     cardsDiv.appendChild(newCard);
     mainCard.appendChild(titlePara);
@@ -95,6 +116,24 @@ function createSVG(className, viewBox, pathData) {
     return svg;
 }
 
+function handleEyeClick(eyePlus, eyeCheck, container, index) {
+    eyePlus.addEventListener("click", function() {
+        container.removeChild(eyePlus);
+        container.appendChild(eyeCheck);
+        myLibrary[index].read = "Read";
+        console.log(myLibrary[index]);
+    });
+
+    eyeCheck.addEventListener("click", function() {
+        container.removeChild(eyeCheck);
+        container.appendChild(eyePlus);
+        myLibrary[index].read = "Not Read";
+        console.log(myLibrary[index]);
+    });
+}
+
+// Example usage assuming book is associated with each card
+
 function removeBook() {
     // Find the book index in myLibrary array
     const index = myLibrary.findIndex(book => (
@@ -105,9 +144,13 @@ function removeBook() {
         book.read === read
     ));
 
-    // Remove the book from myLibrary array
     if (index !== -1) {
-        myLibrary.splice(index, 1);
+        myLibrary.splice(index, 1); // Remove the book
+
+        // Update the index property of books after the removed book
+        for (let i = index; i < myLibrary.length; i++) {
+            myLibrary[i].index = i;
+        }
     }
 }
 
@@ -135,11 +178,6 @@ uploadBook.addEventListener("click", (event) => {
     createCard(title, author, release, pages, read);
     console.log(myLibrary);
 });
-
-
-myLibrary.forEach(element => {
-    console.log(element)
-})
 
 // const theHobbit = new Book('The Hobbit', 'J.R.R Tolkien', '295', 'not read')
 // console.log(theHobbit.info());
