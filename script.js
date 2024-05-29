@@ -5,7 +5,9 @@ const pagesInputField = document.getElementById('pages')
 const releaseInputField = document.getElementById('release')
 const readStatus = document.getElementById('read')
 const newBook = document.querySelector('.balloon');
-const uploadBook = document.querySelector('input.balloon[type="submit"]');
+const uploadBook = document.querySelector('button.balloon[type="submit"]');
+const requiredInputs = document.querySelectorAll('#bookForm input');
+const bookForm = document.getElementById('bookForm');
 const closeFormModal = document.querySelector('button.close')
 
 const myLibrary = [];
@@ -146,11 +148,6 @@ function removeBook() {
 
     if (index !== -1) {
         myLibrary.splice(index, 1); // Remove the book
-
-        // Update the index property of books after the removed book
-        for (let i = index; i < myLibrary.length; i++) {
-            myLibrary[i].index = i;
-        }
     }
 }
 
@@ -159,25 +156,42 @@ function fadeItem(item) {
     item.classList.add('fade-out');
 };
 
-uploadBook.addEventListener("click", (event) => {
-    fadeItem(dialog);
+bookForm.addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent the default form submission
 
-    setTimeout(() => {
-        dialog.close();
-      }, 520);      
+    // Get all required inputs
+    let allValid = true;
 
-    event.preventDefault();
+    // Check if all required inputs are valid
+    requiredInputs.forEach(input => {
+        if (!input.value) {
+            allValid = false;
+            input.classList.add('invalid'); // Optionally add a class for styling invalid inputs
+            // Optionally, you can display a message to the user here
+        } else if (input.value) {
+            input.classList.remove('invalid'); // Remove invalid class if input is valid
+        }
+    });
 
-    title = titleInputField.value;
-    author = authorInputField.value;
-    pages = pagesInputField.value;
-    release = releaseInputField.value;
-    read = readStatus.checked ? "Read" : "Not Read";
+    if (allValid) {
+        event.preventDefault();
 
-    addBookToLibrary(title, author, release, pages, read);
-    createCard(title, author, release, pages, read);
-    console.log(myLibrary);
+        fadeItem(dialog);
+                 
+        setTimeout(() => {
+            dialog.close();
+        }, 520);      
+                 
+        title = titleInputField.value;
+        author = authorInputField.value;
+        pages = pagesInputField.value;
+        release = releaseInputField.value;
+        read = readStatus.checked ? "Read" : "Not Read";
+                     
+        addBookToLibrary(title, author, release, pages, read);
+        createCard(title, author, release, pages, read);
+        console.log(myLibrary);   
+    }
 });
-
 // const theHobbit = new Book('The Hobbit', 'J.R.R Tolkien', '295', 'not read')
-// console.log(theHobbit.info());
+// console.log(theHobbit.info())
