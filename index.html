@@ -21,42 +21,40 @@
               </div>
             </div>
             <dialog>
-              <form action="">
-                <button class="close">x</button>
-                <div id="dialog-msg"><img src="./imgs/bookmark.png" alt="bookmark_ logo">
-                  <h1>new entry</h1></div>
-               
+              <form id="bookForm" novalidate>
+                <div id="dialog-msg">
+                    <img src="./imgs/bookmark.png" alt="bookmark_ logo">
+                    <h1>new entry</h1>
+                </div>
+            
                 <label for="title">
-                  <input type="text" name="book_title" id="title">
-                  <span>Title:</span>
+                    <span>Title:</span>
+                    <input type="text" name="book_title" id="title" required>
                 </label>
-                
+            
                 <label for="author">
-                  <input type="text" name="book_title" id="author">
-                  <span>Author:</span>
+                    <span>Author:</span>
+                    <input type="text" name="book_author" id="author" required>
                 </label>
-                
+            
                 <label for="pages">
-                  <input type="text" name="book_pages" id="pages">
-                  <span>Pages Count:</span>
+                    <span>Pages Count:</span>
+                    <input type="number" name="book_pages" id="pages" required>
                 </label>
-
+            
                 <label for="release">
-                  <input type="text" name="book_year" id="release">
-                  <span>Release Year:</span>
+                    <span>Release Year:</span>
+                    <input type="number" name="book_year" id="release" required>
                 </label>
-                
+            
                 <label for="read">
-                  <span>
-                    Have you already read this book?
-                  </span>
-                  <input type="checkbox" name="book_read_status" id="read">
+                    <span>Have you already read this book?</span>
+                    <input type="checkbox" name="book_read_status" id="read">
                 </label>
-                
-               <input class="balloon" type="submit" autofocus value="Add bookmark_">
-                
-              </form>
-            </dialog>
+            
+                <button type="submit" class="balloon">Add Bookmark</button>
+                <button type="button" class="close">Close</button>
+            </form>            
 
           </div>
           <div class="sidebar">
