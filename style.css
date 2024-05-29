@@ -329,6 +329,11 @@ form input {
     border-radius: 8px;
     margin-bottom: 15px;
     font-size: 16px;
+	transition: border-color 0.3s;
+}
+
+.invalid {
+	border: 1px solid red;
 }
 
 form input:focus {
