@@ -85,7 +85,10 @@ function createCard() {
     });
 
     newCard.classList.add("card");
-    newCard.classList.add("fade-in");
+    setTimeout(() => {
+        newCard.setAttribute("id", "pop-in");
+    }, 30)
+    
     projectOptions.setAttribute("id", "project-options")
     titlePara.classList.add("title");
     infoPara.classList.add("info")
@@ -160,20 +163,20 @@ bookForm.addEventListener('submit', function(event) {
     event.preventDefault(); // Prevent the default form submission
 
     // Get all required inputs
-    let allValid = true;
+    let isValid = true;
 
     // Check if all required inputs are valid
     requiredInputs.forEach(input => {
         if (!input.value) {
-            allValid = false;
+            isValid = false;
             input.classList.add('invalid'); // Optionally add a class for styling invalid inputs
             // Optionally, you can display a message to the user here
-        } else if (input.value) {
+        } else {
             input.classList.remove('invalid'); // Remove invalid class if input is valid
         }
     });
 
-    if (allValid) {
+    if (isValid) {
         event.preventDefault();
 
         fadeItem(dialog);
