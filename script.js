@@ -1,12 +1,11 @@
 const dialog = document.querySelector('dialog')
 const searchInputField = document.getElementById('searchQueryInput')
-const cardList = document.querySelectorAll('.title');
-const cardDiv = document.querySelectorAll('.card')
 const titleInputField = document.getElementById('title')
 const authorInputField = document.getElementById('author')
 const pagesInputField = document.getElementById('pages')
 const releaseInputField = document.getElementById('release')
 const readStatus = document.getElementById('read')
+const favouriteStatus = document.getElementById('star')
 const newBook = document.querySelector('.balloon');
 const uploadBook = document.querySelector('button.balloon[type="submit"]');
 const requiredInputs = document.querySelectorAll('#bookForm input');
@@ -15,34 +14,20 @@ const closeFormModal = document.querySelector('button.close')
 
 const myLibrary = [];
 
-function Book(title, author, release, pages, read) {
+function Book(title, author, release, pages, read, star) {
     this.title = title;
     this.author = author;
     this.pages = pages;
     this.release = release;
     this.read = read;
+    this.star = star;
 }
-
-function search() {
-    for(let i = 0; i < cardList.length; i += 1){
-
-    if (cardList[i].innerText.toLowerCase().includes(searchInputField.value.toLowerCase())){
-        cardDiv[i].style.display = "grid";
-        cardList[i].style.display = "block";
-        console.log(cardList)
-    } else { 
-        cardList[i].style.display = "none";
-        cardDiv[i].style.display = "none"
-    }   
-    }
-};
 
 const index = myLibrary.length;
 
-searchInputField.addEventListener("input", search);
 
-function addBookToLibrary(title, author, release, pages, read) {
-    const newBook = new Book(title, author, release, pages, read);
+function addBookToLibrary(title, author, release, pages, read, star) {
+    const newBook = new Book(title, author, release, pages, read, star);
     newBook.index = myLibrary.length; // Assign index property
     myLibrary.push(newBook);
 }
@@ -64,9 +49,27 @@ closeFormModal.addEventListener("click", () => {
       }, 520);      
 });
 
+function search() {
+    cardList = document.querySelectorAll('.title');
+    cardDiv = document.querySelectorAll('.card')
+    for (let i = 0; i < cardList.length; i += 1){
+
+    if (cardList[i].innerText.toLowerCase().includes(searchInputField.value.toLowerCase())){
+        cardDiv[i].style.display = "grid";
+        cardList[i].style.display = "block";
+        console.log(cardList[i])
+    } else { 
+        cardList[i].style.display = "none";
+        cardDiv[i].style.display = "none"
+    }   
+    }
+};
+
+searchInputField.addEventListener("input", search);
+
 function createCard() {
     newBook.index = myLibrary.length - 1; // Assign index property
-    console.log("Creating card for book at index:", newBook.index);
+    // console.log("Creating card for book at index:", newBook.index);
 
     const newCard = document.createElement("div");
     const mainCard = document.createElement("div")
@@ -196,12 +199,15 @@ bookForm.addEventListener('submit', function(event) {
         title = titleInputField.value;
         author = authorInputField.value;
         pages = pagesInputField.value;
+        release = releaseInputField.value;
         read = readStatus.checked ? "Read" : "Not Read";
+        star = favouriteStatus.checked ? "Favorite" : "Average";
                      
         addBookToLibrary(title, author, release, pages, read);
         createCard(title, author, release, pages, read);
         console.log(myLibrary);   
     }
 });
+
 // const theHobbit = new Book('The Hobbit', 'J.R.R Tolkien', '295', 'not read')
 // console.log(theHobbit.info())
