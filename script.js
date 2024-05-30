@@ -1,4 +1,7 @@
 const dialog = document.querySelector('dialog')
+const searchInputField = document.getElementById('searchQueryInput')
+const cardList = document.querySelectorAll('.title');
+const cardDiv = document.querySelectorAll('.card')
 const titleInputField = document.getElementById('title')
 const authorInputField = document.getElementById('author')
 const pagesInputField = document.getElementById('pages')
@@ -20,7 +23,23 @@ function Book(title, author, release, pages, read) {
     this.read = read;
 }
 
+function search() {
+    for(let i = 0; i < cardList.length; i += 1){
+
+    if (cardList[i].innerText.toLowerCase().includes(searchInputField.value.toLowerCase())){
+        cardDiv[i].style.display = "grid";
+        cardList[i].style.display = "block";
+        console.log(cardList)
+    } else { 
+        cardList[i].style.display = "none";
+        cardDiv[i].style.display = "none"
+    }   
+    }
+};
+
 const index = myLibrary.length;
+
+searchInputField.addEventListener("input", search);
 
 function addBookToLibrary(title, author, release, pages, read) {
     const newBook = new Book(title, author, release, pages, read);
@@ -28,17 +47,6 @@ function addBookToLibrary(title, author, release, pages, read) {
     myLibrary.push(newBook);
 }
 
-
-function removeBook(index) {
-    myLibrary.splice(index, 1); // Remove book from myLibrary array
-    updateIndexes(); // Update indexes after removal
-}
-
-function updateIndexes() {
-    myLibrary.forEach((book, index) => {
-        book.index = index; // Update index property for each book
-    });
-}
 
 newBook.addEventListener("click", () => {
     dialog.classList.remove('fade-out')
@@ -87,7 +95,7 @@ function createCard() {
     newCard.classList.add("card");
     setTimeout(() => {
         newCard.setAttribute("id", "pop-in");
-    }, 30)
+    }, 50)
     
     projectOptions.setAttribute("id", "project-options")
     titlePara.classList.add("title");
@@ -188,7 +196,6 @@ bookForm.addEventListener('submit', function(event) {
         title = titleInputField.value;
         author = authorInputField.value;
         pages = pagesInputField.value;
-        release = releaseInputField.value;
         read = readStatus.checked ? "Read" : "Not Read";
                      
         addBookToLibrary(title, author, release, pages, read);
