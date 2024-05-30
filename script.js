@@ -157,7 +157,8 @@ function removeBook() {
         book.author === author &&
         book.release === release &&
         book.pages === pages &&
-        book.read === read
+        book.read === read &&
+        book.star === star
     ));
 
     if (index !== -1) {
@@ -203,8 +204,8 @@ bookForm.addEventListener('submit', function(event) {
         read = readStatus.checked ? "Read" : "Not Read";
         star = favouriteStatus.checked ? "Favorite" : "Average";
                      
-        addBookToLibrary(title, author, release, pages, read);
-        createCard(title, author, release, pages, read);
+        addBookToLibrary(title, author, release, pages, read, star);
+        createCard(title, author, release, pages, read, star);
         console.log(myLibrary);   
     }
 });
