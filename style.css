@@ -377,6 +377,7 @@ form label span {
 	display: grid;
 	grid-template-columns: auto auto;
 	border: 1px solid black;
+	width: auto;
 }
 
 label.check {
@@ -393,10 +394,12 @@ form > h1 {
 }
 
 input[type="checkbox"] {
-	height: 25;
+	height: 35;
 	align-self: center;
 	filter: hue-rotate(410deg) contrast(0.9) saturate(1.2);
 	margin-top: 2.5rem;
+	width: 20;
+	cursor: pointer;
 }
 
 label.check > span {
