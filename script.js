@@ -86,9 +86,10 @@ function createCard() {
     const trashCanSVG = createSVG("project-option", "0 0 24 24", '<title>trash-can-outline</title><path d="M9,3V4H4V6H5V19A2,2 0 0,0 7,21H17A2,2 0 0,0 19,19V6H20V4H15V3H9M7,6H17V19H7V6M9,8V17H11V8H9M13,8V17H15V8H13Z" />');
     const eyePlusSVG = createSVG("project-option", "0 0 24 24", '<title>eye-plus-outline</title><path d="M12,4.5C7,4.5 2.73,7.61 1,12C2.73,16.39 7,19.5 12,19.5C12.36,19.5 12.72,19.5 13.08,19.45C13.03,19.13 13,18.82 13,18.5C13,18.14 13.04,17.78 13.1,17.42C12.74,17.46 12.37,17.5 12,17.5C8.24,17.5 4.83,15.36 3.18,12C4.83,8.64 8.24,6.5 12,6.5C15.76,6.5 19.17,8.64 20.82,12C20.7,12.24 20.56,12.45 20.43,12.68C21.09,12.84 21.72,13.11 22.29,13.5C22.56,13 22.8,12.5 23,12C21.27,7.61 17,4.5 12,4.5M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9M18,14.5V17.5H15V19.5H18V22.5H20V19.5H23V17.5H20V14.5H18Z" />');
     const eyeCheckSVG = createSVG("project-option", "0 0 24 24", '<title>eye-check</title><path d="M23.5,17L18.5,22L15,18.5L16.5,17L18.5,19L22,15.5L23.5,17M12,9A3,3 0 0,1 15,12A3,3 0 0,1 12,15A3,3 0 0,1 9,12A3,3 0 0,1 12,9M12,17C12.5,17 12.97,16.93 13.42,16.79C13.15,17.5 13,18.22 13,19V19.45L12,19.5C7,19.5 2.73,16.39 1,12C2.73,7.61 7,4.5 12,4.5C17,4.5 21.27,7.61 23,12C22.75,12.64 22.44,13.26 22.08,13.85C21.18,13.31 20.12,13 19,13C18.22,13 17.5,13.15 16.79,13.42C16.93,12.97 17,12.5 17,12A5,5 0 0,0 12,7A5,5 0 0,0 7,12A5,5 0 0,0 12,17Z" />');
+    const starCheckSVG = createSVG("project-option", "0 0 24 24", '<title>star</title><path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" />');
 
     trashCanSVG.addEventListener("click", function() { // Add event listener to remove button
-        removeBook(title, author, release, pages, read);
+        removeBook(newBook.index)
         fadeItem(newCard)
         setTimeout(() => {
             newCard.remove(); // Remove card from DOM
@@ -105,13 +106,18 @@ function createCard() {
     infoPara.classList.add("info")
     mainCard.classList.add("main");
 
-    projectOptions.appendChild(starPlusSVG); // Append star plus SVG to project options
     projectOptions.appendChild(trashCanSVG)
 
     if (read === "Read") {
         projectOptions.appendChild(eyeCheckSVG);
     } else {
         projectOptions.appendChild(eyePlusSVG);
+    }
+
+    if (star === "Favorite") {
+        projectOptions.appendChild(starCheckSVG)
+    } else {
+        projectOptions.appendChild(starPlusSVG)
     }
     
     // Add event listeners for eye icons
@@ -152,7 +158,7 @@ function handleEyeClick(eyePlus, eyeCheck, container, index) {
 
 function removeBook() {
     // Find the book index in myLibrary array
-    const index = myLibrary.findIndex(book => (
+    const test = myLibrary.findIndex(book => (
         book.title === title &&
         book.author === author &&
         book.release === release &&
@@ -161,8 +167,8 @@ function removeBook() {
         book.star === star
     ));
 
-    if (index !== -1) {
-        myLibrary.splice(index, 1); // Remove the book
+    if (test !== -1) {
+        myLibrary.splice(newBook.index, 1)
     }
 }
 
