@@ -12,7 +12,7 @@ const requiredInputs = document.querySelectorAll('#bookForm input');
 const bookForm = document.getElementById('bookForm');
 const closeFormModal = document.querySelector('button.close')
 
-const myLibrary = [];
+let myLibrary = [];
 
 function Book(title, author, release, pages, read, star) {
     this.title = title;
@@ -23,15 +23,11 @@ function Book(title, author, release, pages, read, star) {
     this.star = star;
 }
 
-const index = myLibrary.length;
-
-
 function addBookToLibrary(title, author, release, pages, read, star) {
     const newBook = new Book(title, author, release, pages, read, star);
-    newBook.index = myLibrary.length; // Assign index property
+    newBook.index = myLibrary.length;
     myLibrary.push(newBook);
 }
-
 
 newBook.addEventListener("click", () => {
     dialog.classList.remove('fade-out')
@@ -39,7 +35,7 @@ newBook.addEventListener("click", () => {
     dialog.showModal();
 });
 
-closeFormModal.addEventListener("click", () => {
+closeFormModal.addEventListener("click", (event) => {
     event.preventDefault();
     dialog.classList.remove('fade-in')
     dialog.classList.add('fade-out');
@@ -50,26 +46,25 @@ closeFormModal.addEventListener("click", () => {
 });
 
 function search() {
-    cardList = document.querySelectorAll('.title');
-    cardDiv = document.querySelectorAll('.card')
+    const cardList = document.querySelectorAll('.title');
+    const cardDiv = document.querySelectorAll('.card');
     for (let i = 0; i < cardList.length; i += 1){
-
-    if (cardList[i].innerText.toLowerCase().includes(searchInputField.value.toLowerCase())){
-        cardDiv[i].style.display = "grid";
-        cardList[i].style.display = "block";
-        console.log(cardList[i])
-    } else { 
-        cardList[i].style.display = "none";
-        cardDiv[i].style.display = "none"
-    }   
+        if (cardList[i].innerText.toLowerCase().includes(searchInputField.value.toLowerCase())){
+            cardDiv[i].style.display = "grid";
+            cardList[i].style.display = "block";
+            console.log(cardList[i])
+        } else { 
+            cardList[i].style.display = "none";
+            cardDiv[i].style.display = "none"
+        }   
     }
-};
+}
 
 searchInputField.addEventListener("input", search);
 
-function createCard() {
-    newBook.index = myLibrary.length - 1; // Assign index property
-    // console.log("Creating card for book at index:", newBook.index);
+function createCard(title, author, release, pages, read, star) {
+
+    // myLibrary.sort(function(a, b) { return b - a; });
 
     const newCard = document.createElement("div");
     const mainCard = document.createElement("div")
@@ -88,14 +83,6 @@ function createCard() {
     const eyeCheckSVG = createSVG("project-option", "0 0 24 24", '<title>eye-check</title><path d="M23.5,17L18.5,22L15,18.5L16.5,17L18.5,19L22,15.5L23.5,17M12,9A3,3 0 0,1 15,12A3,3 0 0,1 12,15A3,3 0 0,1 9,12A3,3 0 0,1 12,9M12,17C12.5,17 12.97,16.93 13.42,16.79C13.15,17.5 13,18.22 13,19V19.45L12,19.5C7,19.5 2.73,16.39 1,12C2.73,7.61 7,4.5 12,4.5C17,4.5 21.27,7.61 23,12C22.75,12.64 22.44,13.26 22.08,13.85C21.18,13.31 20.12,13 19,13C18.22,13 17.5,13.15 16.79,13.42C16.93,12.97 17,12.5 17,12A5,5 0 0,0 12,7A5,5 0 0,0 7,12A5,5 0 0,0 12,17Z" />');
     const starCheckSVG = createSVG("project-option", "0 0 24 24", '<title>star</title><path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" />');
 
-    trashCanSVG.addEventListener("click", function() { // Add event listener to remove button
-        removeBook(newBook.index)
-        fadeItem(newCard)
-        setTimeout(() => {
-            newCard.remove(); // Remove card from DOM
-        }, 520);
-    });
-
     newCard.classList.add("card");
     setTimeout(() => {
         newCard.setAttribute("id", "pop-in");
@@ -106,6 +93,12 @@ function createCard() {
     infoPara.classList.add("info")
     mainCard.classList.add("main");
 
+    if (star === "Favorite") {
+        projectOptions.appendChild(starCheckSVG)
+    } else {
+        projectOptions.appendChild(starPlusSVG)
+    }
+
     projectOptions.appendChild(trashCanSVG)
 
     if (read === "Read") {
@@ -114,21 +107,22 @@ function createCard() {
         projectOptions.appendChild(eyePlusSVG);
     }
 
-    if (star === "Favorite") {
-        projectOptions.appendChild(starCheckSVG)
-    } else {
-        projectOptions.appendChild(starPlusSVG)
-    }
-    
-    // Add event listeners for eye icons
-    handleEyeClick(eyePlusSVG, eyeCheckSVG, projectOptions, newBook.index);
-    
     newCard.appendChild(mainCard)
     cardsDiv.appendChild(newCard);
     mainCard.appendChild(titlePara);
     mainCard.appendChild(infoPara);
     newCard.appendChild(projectOptions);
-  };
+
+    trashCanSVG.addEventListener("click", () => {
+        // let dataIndex = parseInt(newCard.getAttribute('data-index'));
+        // removeBook(dataIndex, newCard);
+        removeBook(title, author, release, pages, read, star)
+        fadeItem(newCard);
+                setTimeout(() => {
+                    newCard.remove();
+                }, 520);
+    });
+};
 
 function createSVG(className, viewBox, pathData) {
     const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
@@ -138,27 +132,9 @@ function createSVG(className, viewBox, pathData) {
     return svg;
 }
 
-function handleEyeClick(eyePlus, eyeCheck, container, index) {
-    eyePlus.addEventListener("click", function() {
-        container.removeChild(eyePlus);
-        container.appendChild(eyeCheck);
-        myLibrary[index].read = "Read";
-        console.log(myLibrary[index]);
-    });
 
-    eyeCheck.addEventListener("click", function() {
-        container.removeChild(eyeCheck);
-        container.appendChild(eyePlus);
-        myLibrary[index].read = "Not Read";
-        console.log(myLibrary[index]);
-    });
-}
-
-// Example usage assuming book is associated with each card
-
-function removeBook() {
-    // Find the book index in myLibrary array
-    const test = myLibrary.findIndex(book => (
+function removeBook(title, author, release, pages, read, star) {
+    const index = myLibrary.findIndex(book => (
         book.title === title &&
         book.author === author &&
         book.release === release &&
@@ -167,26 +143,48 @@ function removeBook() {
         book.star === star
     ));
 
-    if (test !== -1) {
-        myLibrary.splice(newBook.index, 1)
+    if (index !== -1) {
+        myLibrary.splice(index, 1)
+        console.log(index)
+        console.log(myLibrary)
     }
 }
 
 function fadeItem(item) {
     item.classList.remove('fade-in');
     item.classList.add('fade-out');
-};
+}
+
+// function updateIndices() {
+//      const trashCanSVG = document.querySelector("svg.project-option");
+//     const cardsDiv = document.querySelector(".cards");
+//     const cards = cardsDiv.querySelectorAll('.card');
+//     cards.forEach((card, i) => {
+//         card.setAttribute('data-index', i);
+       
+//         if (trashCanSVG) {
+//             trashCanSVG.onclick = () => removeBook(i);
+//         }
+//     });
+
+//     myLibrary.forEach((book, i) => {
+//         book.index = i;
+//     });
+    
+//     console.log("Updated myLibrary:", myLibrary);
+// }
+
+
 
 bookForm.addEventListener('submit', function(event) {
     event.preventDefault(); // Prevent the default form submission
 
-    // Get all required inputs
-    let isValid = true;
+    let allValid = true;
 
     // Check if all required inputs are valid
     requiredInputs.forEach(input => {
         if (!input.value) {
-            isValid = false;
+            allValid = false;
             input.classList.add('invalid'); // Optionally add a class for styling invalid inputs
             // Optionally, you can display a message to the user here
         } else {
@@ -194,27 +192,23 @@ bookForm.addEventListener('submit', function(event) {
         }
     });
 
-    if (isValid) {
-        event.preventDefault();
-
+    if (allValid) {
         fadeItem(dialog);
-                 
+
         setTimeout(() => {
             dialog.close();
         }, 520);      
-                 
-        title = titleInputField.value;
-        author = authorInputField.value;
-        pages = pagesInputField.value;
-        release = releaseInputField.value;
-        read = readStatus.checked ? "Read" : "Not Read";
-        star = favouriteStatus.checked ? "Favorite" : "Average";
-                     
+
+        const title = titleInputField.value;
+        const author = authorInputField.value;
+        const pages = pagesInputField.value;
+        const release = releaseInputField.value;
+        const read = readStatus.checked ? "Read" : "Unread";
+        const star = favouriteStatus.checked ? "Favorite" : "Average";
+
         addBookToLibrary(title, author, release, pages, read, star);
         createCard(title, author, release, pages, read, star);
-        console.log(myLibrary);   
+        console.log(myLibrary);
     }
 });
 
-// const theHobbit = new Book('The Hobbit', 'J.R.R Tolkien', '295', 'not read')
-// console.log(theHobbit.info())
