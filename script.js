@@ -25,7 +25,6 @@ function Book(title, author, release, pages, read, star) {
 
 function addBookToLibrary(title, author, release, pages, read, star) {
     const newBook = new Book(title, author, release, pages, read, star);
-    newBook.index = myLibrary.length;
     myLibrary.push(newBook);
 }
 
@@ -101,7 +100,7 @@ function createCard(title, author, release, pages, read, star) {
 
     projectOptions.appendChild(trashCanSVG)
 
-    if (read === "Read") {
+    if (readStatus.checked === true) {
         projectOptions.appendChild(eyeCheckSVG);
     } else {
         projectOptions.appendChild(eyePlusSVG);
@@ -113,6 +112,31 @@ function createCard(title, author, release, pages, read, star) {
     mainCard.appendChild(infoPara);
     newCard.appendChild(projectOptions);
 
+    eyeCheckSVG.addEventListener("click", () => {
+        handleEyeClick(title, author, release, pages, "Unread", star, "Unread");
+        projectOptions.removeChild(eyeCheckSVG);
+        projectOptions.appendChild(eyePlusSVG)
+    })
+
+    eyeCheckSVG.addEventListener("click", () => {
+        handleEyeClick(title, author, release, pages, "Read", star, "Unread");
+        projectOptions.appendChild(eyePlusSVG)
+    })
+
+
+    eyePlusSVG.addEventListener("click", () => {
+        handleEyeClick(title, author, release, pages, "Read", star, "Read");
+        projectOptions.removeChild(eyePlusSVG);
+        projectOptions.appendChild(eyeCheckSVG);
+    })
+
+    eyePlusSVG.addEventListener("click", () => {
+        handleEyeClick(title, author, release, pages, "Unread", star, "Read");
+        projectOptions.appendChild(eyeCheckSVG);
+    })
+
+
+
     trashCanSVG.addEventListener("click", () => {
         // let dataIndex = parseInt(newCard.getAttribute('data-index'));
         // removeBook(dataIndex, newCard);
@@ -122,7 +146,30 @@ function createCard(title, author, release, pages, read, star) {
                     newCard.remove();
                 }, 520);
     });
+
+
+    // eyePlusSVG.addEventListener("click", () => {
+    //     console.log('test')
+    //     handleEyeClick(eyePlusSVG, eyeCheckSVG, read, projectOptions)
+    // });
+
+
 };
+
+function handleEyeClick(title, author, release, pages, read, star, newStatus) {
+    const index = myLibrary.findIndex(book => (
+        book.title === title &&
+        book.author === author &&
+        book.release === release &&
+        book.pages === pages &&
+        book.read === read &&
+        book.star === star
+    ));
+   
+    if (index !== -1) {
+        myLibrary[index].read = newStatus;
+    }
+}
 
 function createSVG(className, viewBox, pathData) {
     const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
