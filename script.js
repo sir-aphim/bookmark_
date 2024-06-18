@@ -125,6 +125,20 @@ function createCard(title, author, release, pages, read, star) {
         handleStarClick(title, author, release, pages, currentStatus, newStatus);
         return newStatus;
     }
+
+        // Add event listeners for favorite status
+    starCheckSVG.addEventListener("click", () => {
+        toggleFavoriteStatus("Favorite");
+        projectOptions.removeChild(starCheckSVG);
+        projectOptions.appendChild(starPlusSVG);
+    });
+        
+    starPlusSVG.addEventListener("click", () => {
+        toggleFavoriteStatus("Average");
+        projectOptions.removeChild(starPlusSVG);
+        projectOptions.appendChild(starCheckSVG);
+    });
+    
     
     // Add event listeners for read status
     eyeCheckSVG.addEventListener("click", () => {
@@ -138,40 +152,19 @@ function createCard(title, author, release, pages, read, star) {
         projectOptions.removeChild(eyePlusSVG);
         projectOptions.appendChild(eyeCheckSVG);
     });
-    
-    // Add event listeners for favorite status
-    starCheckSVG.addEventListener("click", () => {
-        toggleFavoriteStatus("Favorite");
-        projectOptions.removeChild(starCheckSVG);
-        projectOptions.appendChild(starPlusSVG);
-    });
-    
-    starPlusSVG.addEventListener("click", () => {
-        toggleFavoriteStatus("Average");
-        projectOptions.removeChild(starPlusSVG);
-        projectOptions.appendChild(starCheckSVG);
-    });
-
 
 
     trashCanSVG.addEventListener("click", () => {
-        // let dataIndex = parseInt(newCard.getAttribute('data-index'));
-        // removeBook(dataIndex, newCard);
-        removeBook(title, author, release, pages, read, star)
+        const currentReadStatus = 'Read' ? 'Read' : 'Unread';
+        const currentStarStatus = 'Favorite' ? 'Favorite' : 'Average';
+        
+        removeBook(title, author, release, pages, currentReadStatus, currentStarStatus);
         fadeItem(newCard);
-                setTimeout(() => {
-                    newCard.remove();
-                }, 520);
+        setTimeout(() => {
+            newCard.remove();
+        }, 520);
     });
-
-
-    // eyePlusSVG.addEventListener("click", () => {
-    //     console.log('test')
-    //     handleEyeClick(eyePlusSVG, eyeCheckSVG, read, projectOptions)
-    // });
-
-
-};
+}
 
 function handleEyeClick(title, author, release, pages, read, newStatus) {
     const index = myLibrary.findIndex(book => (
