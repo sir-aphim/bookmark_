@@ -112,28 +112,45 @@ function createCard(title, author, release, pages, read, star) {
     mainCard.appendChild(infoPara);
     newCard.appendChild(projectOptions);
 
+    // read status
+    function toggleReadStatus(currentStatus) {
+        const newStatus = currentStatus === "Read" ? "Unread" : "Read";
+        handleEyeClick(title, author, release, pages, currentStatus, newStatus);
+        return newStatus;
+    }
+    
+    // Function to toggle favorite status
+    function toggleFavoriteStatus(currentStatus) {
+        const newStatus = currentStatus === "Favorite" ? "Average" : "Favorite";
+        handleStarClick(title, author, release, pages, currentStatus, newStatus);
+        return newStatus;
+    }
+    
+    // Add event listeners for read status
     eyeCheckSVG.addEventListener("click", () => {
-        handleEyeClick(title, author, release, pages, "Unread", star, "Unread");
+        toggleReadStatus("Read");
         projectOptions.removeChild(eyeCheckSVG);
-        projectOptions.appendChild(eyePlusSVG)
-    })
-
-    eyeCheckSVG.addEventListener("click", () => {
-        handleEyeClick(title, author, release, pages, "Read", star, "Unread");
-        projectOptions.appendChild(eyePlusSVG)
-    })
-
-
+        projectOptions.appendChild(eyePlusSVG);
+    });
+    
     eyePlusSVG.addEventListener("click", () => {
-        handleEyeClick(title, author, release, pages, "Read", star, "Read");
+        toggleReadStatus("Unread");
         projectOptions.removeChild(eyePlusSVG);
         projectOptions.appendChild(eyeCheckSVG);
-    })
-
-    eyePlusSVG.addEventListener("click", () => {
-        handleEyeClick(title, author, release, pages, "Unread", star, "Read");
-        projectOptions.appendChild(eyeCheckSVG);
-    })
+    });
+    
+    // Add event listeners for favorite status
+    starCheckSVG.addEventListener("click", () => {
+        toggleFavoriteStatus("Favorite");
+        projectOptions.removeChild(starCheckSVG);
+        projectOptions.appendChild(starPlusSVG);
+    });
+    
+    starPlusSVG.addEventListener("click", () => {
+        toggleFavoriteStatus("Average");
+        projectOptions.removeChild(starPlusSVG);
+        projectOptions.appendChild(starCheckSVG);
+    });
 
 
 
@@ -156,18 +173,33 @@ function createCard(title, author, release, pages, read, star) {
 
 };
 
-function handleEyeClick(title, author, release, pages, read, star, newStatus) {
+function handleEyeClick(title, author, release, pages, read, newStatus) {
     const index = myLibrary.findIndex(book => (
         book.title === title &&
         book.author === author &&
         book.release === release &&
         book.pages === pages &&
-        book.read === read &&
-        book.star === star
+        book.read === read
     ));
    
     if (index !== -1) {
         myLibrary[index].read = newStatus;
+        console.log(myLibrary[index])
+    }
+}
+
+function handleStarClick(title, author, release, pages, star, newStatus) {
+    const index = myLibrary.findIndex(book => (
+        book.title === title &&
+        book.author === author &&
+        book.release === release &&
+        book.pages === pages &&
+        book.star === star
+    ));
+   
+    if (index !== -1) {
+        myLibrary[index].star = newStatus;
+        console.log(myLibrary[index])
     }
 }
 
