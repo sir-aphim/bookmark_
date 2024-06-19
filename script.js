@@ -129,28 +129,24 @@ function createCard(title, author, release, pages, read, star) {
         // Add event listeners for favorite status
     starCheckSVG.addEventListener("click", () => {
         toggleFavoriteStatus("Favorite");
-        projectOptions.removeChild(starCheckSVG);
-        projectOptions.appendChild(starPlusSVG);
+        projectOptions.replaceChild(starPlusSVG, starCheckSVG);
     });
         
     starPlusSVG.addEventListener("click", () => {
         toggleFavoriteStatus("Average");
-        projectOptions.removeChild(starPlusSVG);
-        projectOptions.appendChild(starCheckSVG);
+        projectOptions.replaceChild(starCheckSVG, starPlusSVG);
     });
     
     
     // Add event listeners for read status
     eyeCheckSVG.addEventListener("click", () => {
         toggleReadStatus("Read");
-        projectOptions.removeChild(eyeCheckSVG);
-        projectOptions.appendChild(eyePlusSVG);
+        projectOptions.replaceChild(eyePlusSVG, eyeCheckSVG);
     });
     
     eyePlusSVG.addEventListener("click", () => {
         toggleReadStatus("Unread");
-        projectOptions.removeChild(eyePlusSVG);
-        projectOptions.appendChild(eyeCheckSVG);
+        projectOptions.replaceChild(eyeCheckSVG, eyePlusSVG);
     });
 
 
