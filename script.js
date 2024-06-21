@@ -11,6 +11,8 @@ const uploadBook = document.querySelector('button.balloon[type="submit"]');
 const requiredInputs = document.querySelectorAll('#bookForm input');
 const bookForm = document.getElementById('bookForm');
 const closeFormModal = document.querySelector('button.close')
+const readCheckbox = document.getElementById('readCheckbox');
+const favoriteCheckbox = document.getElementById('favoriteCheckbox');
 
 let myLibrary = [];
 
@@ -44,27 +46,41 @@ closeFormModal.addEventListener("click", (event) => {
       }, 520);      
 });
 
-function search() {
-    const cardList = document.querySelectorAll('.title');
-    const cardDiv = document.querySelectorAll('.card');
-    for (let i = 0; i < cardList.length; i += 1){
-        if (cardList[i].innerText.toLowerCase().includes(searchInputField.value.toLowerCase())){
-            cardDiv[i].style.display = "grid";
-            cardList[i].style.display = "block";
-            console.log(cardList[i])
-        } else { 
-            cardList[i].style.display = "none";
-            cardDiv[i].style.display = "none"
-        }   
+function searchAndSort() {
+    const searchQuery = searchInputField.value.toLowerCase();
+
+    // Filter the library based on the search query
+    let filteredLibrary = myLibrary.filter(book => 
+        book.title.toLowerCase().includes(searchQuery) ||
+        book.author.toLowerCase().includes(searchQuery) ||
+        book.release.toLowerCase().includes(searchQuery) ||
+        book.pages.toLowerCase().includes(searchQuery)
+    );
+
+    // Apply sorting based on checkboxes
+    if (readCheckbox.checked) {
+        filteredLibrary = filteredLibrary.filter(book => book.read === "Read");
     }
+
+    if (favoriteCheckbox.checked) {
+        filteredLibrary = filteredLibrary.filter(book => book.star === "Favorite");
+    }
+
+    // Clear the current displayed cards
+    const cardContainer = document.querySelector('.cards');
+    cardContainer.innerHTML = '';
+
+    // Re-create cards based on the filtered and sorted library
+    filteredLibrary.forEach(book => {
+        createCard(book.title, book.author, book.release, book.pages, book.read, book.star);
+    });
 }
 
-searchInputField.addEventListener("input", search);
+searchInputField.addEventListener("input", searchAndSort);
+readCheckbox.addEventListener("change", searchAndSort);
+favoriteCheckbox.addEventListener("change", searchAndSort);
 
 function createCard(title, author, release, pages, read, star) {
-
-    // myLibrary.sort(function(a, b) { return b - a; });
-
     const newCard = document.createElement("div");
     const mainCard = document.createElement("div")
     const titlePara = document.createElement("p")
@@ -100,7 +116,7 @@ function createCard(title, author, release, pages, read, star) {
 
     projectOptions.appendChild(trashCanSVG)
 
-    if (readStatus.checked === true) {
+    if (read === "Read") {
         projectOptions.appendChild(eyeCheckSVG);
     } else {
         projectOptions.appendChild(eyePlusSVG);
