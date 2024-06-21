@@ -74,6 +74,8 @@ function searchAndSort() {
     filteredLibrary.forEach(book => {
         createCard(book.title, book.author, book.release, book.pages, book.read, book.star);
     });
+
+    trashDelete();
 }
 
 searchInputField.addEventListener("input", searchAndSort);
@@ -165,7 +167,10 @@ function createCard(title, author, release, pages, read, star) {
         projectOptions.replaceChild(eyeCheckSVG, eyePlusSVG);
     });
 
+    trashDelete();
+}
 
+function trashDelete() {
     trashCanSVG.addEventListener("click", () => {
         const currentReadStatus = 'Read' ? 'Read' : 'Unread';
         const currentStarStatus = 'Favorite' ? 'Favorite' : 'Average';
@@ -238,27 +243,6 @@ function fadeItem(item) {
     item.classList.remove('fade-in');
     item.classList.add('fade-out');
 }
-
-// function updateIndices() {
-//      const trashCanSVG = document.querySelector("svg.project-option");
-//     const cardsDiv = document.querySelector(".cards");
-//     const cards = cardsDiv.querySelectorAll('.card');
-//     cards.forEach((card, i) => {
-//         card.setAttribute('data-index', i);
-       
-//         if (trashCanSVG) {
-//             trashCanSVG.onclick = () => removeBook(i);
-//         }
-//     });
-
-//     myLibrary.forEach((book, i) => {
-//         book.index = i;
-//     });
-    
-//     console.log("Updated myLibrary:", myLibrary);
-// }
-
-
 
 bookForm.addEventListener('submit', function(event) {
     event.preventDefault(); // Prevent the default form submission
