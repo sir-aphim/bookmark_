@@ -32,56 +32,66 @@
                 <div class="toggle-switch"></div>
               </label>
             </div>
-
-            <dialog>
-              <form id="bookForm" novalidate>
-                <div id="dialog-msg">
-                    <img src="./imgs/bookmark.png" alt="bookmark_ logo">
-                    <h1>new entry</h1>
-                </div>
-            
-                <label for="title">
-                    <span>Title:</span>
-                    <input class="border-common" type="text" name="book_title" id="title" maxlength="20" required>
-                </label>
-            
-                <label for="author">
-                    <span>Author:</span>
-                    <input class="border-common" type="text" name="book_author" id="author" maxlength="15" required>
-                </label>
-            
-                <label for="pages">
-                  <span>Pages Count:</span>
-                  <input class="border-common" type="text" name="book_pages" id="pages" pattern="\d*" maxlength="6" required>
-              </label>
-              
-                <label for="release">
-                  <span>Release Year:</span>
-                  <input class="border-common" type="text" name="book_year" id="release" pattern="\d*" maxlength="4" required>
-                </label>
-              
-              
-                </label>
-
-                <div id="checks" class="border-common">
-                  <label for="read" class="check">
-                    <span>Have you already read this book?</span>
-                    <input type="checkbox" name="book_read_status" id="read">
-                </label>
-
-                <label for="star" class="check">
-                  <span>Is it one of your favorite books?</span>
-                  <input type="checkbox" name="book_star_status" id="star">
-              </label>
-                </div>
-            
-                
-            
-                <button type="submit" class="balloon">Add Bookmark</button>
-                <button type="button" class="close">Close</button>
-            </form>            
-
           </div>
+
+          <dialog id="bookSetup">
+            <form id="bookForm" novalidate>
+              <div id="dialog-msg">
+                  <img src="./imgs/bookmark.png" alt="bookmark_ logo">
+                  <h1>new entry</h1>
+              </div>
+          
+              <label for="title">
+                  <span>Title:</span>
+                  <input class="border-common" type="text" name="book_title" id="title" maxlength="20" required>
+              </label>
+          
+              <label for="author">
+                  <span>Author:</span>
+                  <input class="border-common" type="text" name="book_author" id="author" maxlength="15" required>
+              </label>
+          
+              <label for="pages">
+                <span>Pages Count:</span>
+                <input class="border-common" type="text" name="book_pages" id="pages" pattern="\d*" maxlength="6" required>
+            </label>
+            
+              <label for="release">
+                <span>Release Year:</span>
+                <input class="border-common" type="text" name="book_year" id="release" pattern="\d*" maxlength="4" required>
+              </label>
+            
+            
+              </label>
+
+              <div id="checks" class="border-common">
+                <label for="read" class="check">
+                  <span>Have you already read this book?</span>
+                  <input type="checkbox" name="book_read_status" id="read">
+              </label>
+
+              <label for="star" class="check">
+                <span>Is it one of your favorite books?</span>
+                <input type="checkbox" name="book_star_status" id="star">
+              </label>
+              </div>
+          
+              <button type="submit" class="balloon">Add Bookmark</button>
+              <button type="button" class="close">Close</button>
+          </form>
+        </dialog>
+        
+        <dialog id="bookSettings">
+          <div id="settings-modal">
+            <div id="dialog-msg">
+              <img src="./imgs/bookmark.png" alt="bookmark_ logo">
+              <h1>settings</h1>
+          </div>
+  
+          <button type="button" class="close">Close</button>
+          </div>
+        </dialog>
+
           <div class="sidebar">
             <div class="options">
               <ul>
