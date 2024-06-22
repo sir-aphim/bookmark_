@@ -183,14 +183,40 @@ dialog {
 	box-shadow: 0px 0px 0px 100vh rgba(0, 0, 0, 0.15);
 }
 
-#bookSettings {
-	display: grid;
+#settings-modal {
+	overflow: hidden;
 	width: 400px;
+	height: 691px;
 	background-color: rgba(255, 255, 255, 1);
-	padding: 36px;
+	padding: 20px;
 	border-radius: 12px;
 	box-shadow: 0px 0px 10px #fff;
 	gap: 1rem;
+}
+
+#delete-all {
+	background-color: #d2d2d2;
+	color: black;
+	border-radius: 15px;
+	display: flex;
+	gap: 20px;
+	justify-content: space-between;
+	padding: 25;
+	transition: .3s
+}
+
+#delete-all:hover {
+    color: #ca0a0a;
+	filter: brightness(110%);
+	cursor: pointer;
+}
+
+.deleteHover {
+    filter: invert(21%) sepia(92%) saturate(5849%) hue-rotate(345deg) brightness(72%) contrast(121%);
+}
+
+#delete-all h3 {
+	font-size: 1rem;
 }
 
 ::backdrop {
@@ -201,6 +227,7 @@ dialog {
 	display: flex;
 	padding: 15 0 15 0;
 	transition: .3s;
+	height: 80px;
 }
 
 #dialog-msg:hover {
@@ -385,7 +412,6 @@ form {
 }
 
 .close {
-	padding: 0;
 	margin: 0;
 	background-color: transparent;
 	border: 0;
@@ -395,7 +421,7 @@ form {
 	left: 85%;
 	font-size: large;
 	font-weight: bold;
-	width: 70;
+	right: 70;
 	transition: all .1s ease-in-out;
 	cursor: pointer;
 	height: 45;
