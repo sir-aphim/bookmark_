@@ -74,8 +74,6 @@ function searchAndSort() {
     filteredLibrary.forEach(book => {
         createCard(book.title, book.author, book.release, book.pages, book.read, book.star);
     });
-
-    trashDelete();
 }
 
 searchInputField.addEventListener("input", searchAndSort);
@@ -167,21 +165,21 @@ function createCard(title, author, release, pages, read, star) {
         projectOptions.replaceChild(eyeCheckSVG, eyePlusSVG);
     });
 
-    trashDelete();
-}
-
-function trashDelete() {
     trashCanSVG.addEventListener("click", () => {
-        const currentReadStatus = 'Read' ? 'Read' : 'Unread';
-        const currentStarStatus = 'Favorite' ? 'Favorite' : 'Average';
-        
-        removeBook(title, author, release, pages, currentReadStatus, currentStarStatus);
+        removeBook(title, author, release, pages, "Read", "Favorite");
+        removeBook(title, author, release, pages, "Unread", "Favorite");
+        removeBook(title, author, release, pages, "Read", "Average");
+        removeBook(title, author, release, pages, "Unread", "Average");
+
         fadeItem(newCard);
         setTimeout(() => {
             newCard.remove();
         }, 520);
     });
 }
+
+
+
 
 function handleEyeClick(title, author, release, pages, read, newStatus) {
     const index = myLibrary.findIndex(book => (
