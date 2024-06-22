@@ -42,22 +42,25 @@
             
                 <label for="title">
                     <span>Title:</span>
-                    <input class="border-common" type="text" name="book_title" id="title" required>
+                    <input class="border-common" type="text" name="book_title" id="title" maxlength="20" required>
                 </label>
             
                 <label for="author">
                     <span>Author:</span>
-                    <input class="border-common" type="text" name="book_author" id="author" required>
+                    <input class="border-common" type="text" name="book_author" id="author" maxlength="15" required>
                 </label>
             
                 <label for="pages">
-                    <span>Pages Count:</span>
-                    <input class="border-common" type="number" name="book_pages" id="pages" required>
-                </label>
-            
+                  <span>Pages Count:</span>
+                  <input class="border-common" type="text" name="book_pages" id="pages" pattern="\d*" maxlength="6" required>
+              </label>
+              
                 <label for="release">
-                    <span>Release Year:</span>
-                    <input class="border-common" type="number" name="book_year" id="release" required>
+                  <span>Release Year:</span>
+                  <input class="border-common" type="text" name="book_year" id="release" pattern="\d*" maxlength="4" required>
+                </label>
+              
+              
                 </label>
 
                 <div id="checks" class="border-common">
