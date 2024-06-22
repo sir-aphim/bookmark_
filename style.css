@@ -183,11 +183,21 @@ dialog {
 	box-shadow: 0px 0px 0px 100vh rgba(0, 0, 0, 0.15);
 }
 
+#bookSettings {
+	display: grid;
+	width: 400px;
+	background-color: rgba(255, 255, 255, 1);
+	padding: 36px;
+	border-radius: 12px;
+	box-shadow: 0px 0px 10px #fff;
+	gap: 1rem;
+}
+
 ::backdrop {
 	opacity: 0;
 }
 
-dialog > form > #dialog-msg {
+#dialog-msg {
 	display: flex;
 	padding: 15 0 15 0;
 	transition: .3s;
@@ -197,12 +207,12 @@ dialog > form > #dialog-msg {
 	filter: invert(49%) sepia(55%) saturate(557%) hue-rotate(207deg) brightness(76%) contrast(92%);
 }
 
-form > #dialog-msg img {
+#dialog-msg img {
 	filter: none;
 }
 
 
-form > #dialog-msg h1 {
+#dialog-msg h1 {
 	color: black;
 	font-size: math;
 }
