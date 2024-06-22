@@ -433,13 +433,13 @@ label > input:focus + span {
 }
 
 form label span {
-    font-size: medium;
-    position: absolute;
-    top: -7px;
-    left: 20px;
-    transition: .3s;
-    background-color: #fff;
-    padding: 2px;
+	font-size: medium;
+	position: absolute;
+	top: -15px;
+	left: 20px;
+	transition: .3s;
+	background-color: #fff;
+	padding: 2px;
 }
 
 #checks {
