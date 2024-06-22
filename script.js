@@ -1,16 +1,18 @@
-const dialog = document.querySelector('dialog')
+const dialog = document.getElementById('bookSetup')
+const dialogSettings = document.getElementById('bookSettings')
 const searchInputField = document.getElementById('searchQueryInput')
-const titleInputField = document.getElementById('title')
-const authorInputField = document.getElementById('author')
-const pagesInputField = document.getElementById('pages')
-const releaseInputField = document.getElementById('release')
-const readStatus = document.getElementById('read')
-const favouriteStatus = document.getElementById('star')
+const settingsModal = document.getElementById('delete-all');
+const titleInputField = document.getElementById('title');
+const authorInputField = document.getElementById('author');
+const pagesInputField = document.getElementById('pages');
+const releaseInputField = document.getElementById('release');
+const readStatus = document.getElementById('read');
+const favouriteStatus = document.getElementById('star');
 const newBook = document.querySelector('.balloon');
 const uploadBook = document.querySelector('button.balloon[type="submit"]');
 const requiredInputs = document.querySelectorAll('#bookForm input');
 const bookForm = document.getElementById('bookForm');
-const closeFormModal = document.querySelector('button.close')
+const closeFormModal = document.querySelector('button.close');
 const readCheckbox = document.getElementById('readCheckbox');
 const favoriteCheckbox = document.getElementById('favoriteCheckbox');
 
@@ -30,8 +32,23 @@ function addBookToLibrary(title, author, release, pages, read, star) {
     myLibrary.push(newBook);
 }
 
+dialogSettings.showModal();
+
+settingsModal.addEventListener("mouseover", () => {
+    const purgeSVG = settingsModal.querySelector('svg');
+
+    purgeSVG.classList.add('deleteHover')
+});
+
+settingsModal.addEventListener("mouseout", () => {
+    const purgeSVG = settingsModal.querySelector('svg');
+
+    purgeSVG.classList.remove('deleteHover')
+})
+
+
 newBook.addEventListener("click", () => {
-    dialog.classList.remove('fade-out')
+    dialog.classList.remove('fade-out');
     dialog.classList.add('fade-in');
     dialog.showModal();
 });
@@ -42,7 +59,8 @@ closeFormModal.addEventListener("click", (event) => {
     dialog.classList.add('fade-out');
 
     setTimeout(() => {
-        dialog.close();
+        dialog.close
+        dialogSettings.close();
       }, 520);      
 });
 
@@ -252,7 +270,6 @@ bookForm.addEventListener('submit', function(event) {
         if (!input.value) {
             allValid = false;
             input.classList.add('invalid'); // Optionally add a class for styling invalid inputs
-            // Optionally, you can display a message to the user here
         } else {
             input.classList.remove('invalid'); // Remove invalid class if input is valid
         }
