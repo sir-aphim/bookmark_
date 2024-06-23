@@ -1,21 +1,32 @@
+// dialog related
 const dialog = document.getElementById('bookSetup')
 const dialogSettings = document.getElementById('bookSettings')
+const cardContainer = document.querySelector('.cards');
 const cogButton = document.querySelector('li:nth-child(2)')
-const searchInputField = document.getElementById('searchQueryInput')
 const settingsModal = document.getElementById('delete-all');
+const confirmationModal = document.getElementById('confirmation');
+
+// input
+const searchInputField = document.getElementById('searchQueryInput')
 const titleInputField = document.getElementById('title');
 const authorInputField = document.getElementById('author');
 const pagesInputField = document.getElementById('pages');
 const releaseInputField = document.getElementById('release');
+
+// stat
 const readStatus = document.getElementById('read');
 const favouriteStatus = document.getElementById('star');
 const newBook = document.querySelector('.balloon');
-const uploadBook = document.querySelector('button.balloon[type="submit"]');
 const requiredInputs = document.querySelectorAll('#bookForm input');
+
+// button
+const uploadBook = document.querySelector('button.balloon[type="submit"]');
 const bookForm = document.getElementById('bookForm');
 const closeButtons = document.querySelectorAll('button.close');
 const readCheckbox = document.getElementById('readCheckbox');
 const favoriteCheckbox = document.getElementById('favoriteCheckbox');
+const denyButton = document.querySelector('.balloon.project-option.deny')
+const purgeButton = document.querySelector('.balloon.project-option.confirm')
 
 let myLibrary = [];
 
@@ -37,42 +48,72 @@ cogButton.addEventListener("click", () => {
     dialogSettings.classList.remove('fade-out');
     dialogSettings.classList.add('fade-in');
     dialogSettings.showModal();
+    closeModal(dialogSettings)
 })
 
 settingsModal.addEventListener("mouseover", () => {
     const purgeSVG = settingsModal.querySelector('svg');
-
     purgeSVG.classList.add('deleteHover')
 });
 
+settingsModal.addEventListener("click", () => {
+    confirmationModal.classList.remove('fade-out');
+    confirmationModal.classList.add('fade-in')
+    confirmationModal.showModal();
+})
+
 settingsModal.addEventListener("mouseout", () => {
     const purgeSVG = settingsModal.querySelector('svg');
-
     purgeSVG.classList.remove('deleteHover')
 })
 
+denyButton.addEventListener("click", () => {
+    event.preventDefault();
+    confirmationModal.classList.remove('fade-in');
+    confirmationModal.classList.add('fade-out');
+
+    setTimeout(() => {
+        confirmationModal.close();
+    }, 520);
+});;
+
+purgeButton.addEventListener("click", () => {
+    myLibrary.length = 0; 
+    cardContainer.innerHTML = '';
+
+    event.preventDefault();
+    confirmationModal.classList.remove('fade-in');
+    confirmationModal.classList.add('fade-out');
+    dialogSettings.classList.add('fade-out')
+
+    setTimeout(() => {
+        confirmationModal.close();
+        dialogSettings.close();
+    }, 520);
+})
 
 newBook.addEventListener("click", () => {
     dialog.classList.remove('fade-out');
     dialog.classList.add('fade-in');
     dialog.showModal();
+    closeModal(dialog)
 });
 
 // Add the event listener to each button
-closeButtons.forEach((button) => {
-    button.addEventListener("click", (event) => {
-        event.preventDefault();
-        dialog.classList.remove('fade-in');
-        dialog.classList.add('fade-out');
-        dialogSettings.classList.add('fade-out')
-        dialogSettings.classList.remove('fade-in')
-
-        setTimeout(() => {
-            dialog.close();
-            dialogSettings.close(); // Ensure both dialogs are closed
-        }, 520);
-    });
-});
+function closeModal (container) {
+    closeButtons.forEach((button => {
+        button.addEventListener("click", (event) => {
+            event.preventDefault();
+            container.classList.remove('fade-in');
+            container.classList.add('fade-out');
+    
+            setTimeout(() => {
+                container.close();
+            }, 520);
+        });;
+    }))
+}
+   
 
 function searchAndSort() {
     const searchQuery = searchInputField.value.toLowerCase();
@@ -95,7 +136,6 @@ function searchAndSort() {
     }
 
     // Clear the current displayed cards
-    const cardContainer = document.querySelector('.cards');
     cardContainer.innerHTML = '';
 
     // Re-create cards based on the filtered and sorted library
