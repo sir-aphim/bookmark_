@@ -260,7 +260,6 @@ function handleEyeClick(title, author, release, pages, read, newStatus) {
    
     if (index !== -1) {
         myLibrary[index].read = newStatus;
-        console.log(myLibrary[index])
     }
 }
 
@@ -275,7 +274,6 @@ function handleStarClick(title, author, release, pages, star, newStatus) {
    
     if (index !== -1) {
         myLibrary[index].star = newStatus;
-        console.log(myLibrary[index])
     }
 }
 
@@ -300,8 +298,6 @@ function removeBook(title, author, release, pages, read, star) {
 
     if (index !== -1) {
         myLibrary.splice(index, 1)
-        console.log(index)
-        console.log(myLibrary)
     }
 }
 
@@ -341,7 +337,6 @@ bookForm.addEventListener('submit', function(event) {
 
         addBookToLibrary(title, author, release, pages, read, star);
         createCard(title, author, release, pages, read, star);
-        console.log(myLibrary);
     }
 });
 
