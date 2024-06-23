@@ -183,6 +183,30 @@ dialog {
 	box-shadow: 0px 0px 0px 100vh rgba(0, 0, 0, 0.15);
 }
 
+#confirmation {
+	width: 490;
+	flex-direction: column;
+	gap: 10px;
+}
+
+#button-container {
+	display: flex;
+	justify-content: center;
+	gap: 25px;
+}
+
+#confirmation > h2 {
+	font-size: 1.3rem;
+}
+
+#button-container > .balloon.project-option {
+	width: 25%;
+}
+
+#button-container > .balloon.project-option:nth-child(1) {
+	background-color: crimson;
+}
+
 #settings-modal {
 	overflow: hidden;
 	width: 400px;
@@ -539,6 +563,7 @@ label.check > span {
 	font-size: medium;
 	justify-self: center;
 	transition: all .1s ease-in-out;
+	cursor: pointer;
 }
 
 .balloon:hover {
