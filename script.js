@@ -1,5 +1,6 @@
 const dialog = document.getElementById('bookSetup')
 const dialogSettings = document.getElementById('bookSettings')
+const cogButton = document.querySelector('li:nth-child(2)')
 const searchInputField = document.getElementById('searchQueryInput')
 const settingsModal = document.getElementById('delete-all');
 const titleInputField = document.getElementById('title');
@@ -12,7 +13,7 @@ const newBook = document.querySelector('.balloon');
 const uploadBook = document.querySelector('button.balloon[type="submit"]');
 const requiredInputs = document.querySelectorAll('#bookForm input');
 const bookForm = document.getElementById('bookForm');
-const closeFormModal = document.querySelector('button.close');
+const closeButtons = document.querySelectorAll('button.close');
 const readCheckbox = document.getElementById('readCheckbox');
 const favoriteCheckbox = document.getElementById('favoriteCheckbox');
 
@@ -32,7 +33,11 @@ function addBookToLibrary(title, author, release, pages, read, star) {
     myLibrary.push(newBook);
 }
 
-dialogSettings.showModal();
+cogButton.addEventListener("click", () => {
+    dialogSettings.classList.remove('fade-out');
+    dialogSettings.classList.add('fade-in');
+    dialogSettings.showModal();
+})
 
 settingsModal.addEventListener("mouseover", () => {
     const purgeSVG = settingsModal.querySelector('svg');
@@ -53,15 +58,20 @@ newBook.addEventListener("click", () => {
     dialog.showModal();
 });
 
-closeFormModal.addEventListener("click", (event) => {
-    event.preventDefault();
-    dialog.classList.remove('fade-in')
-    dialog.classList.add('fade-out');
+// Add the event listener to each button
+closeButtons.forEach((button) => {
+    button.addEventListener("click", (event) => {
+        event.preventDefault();
+        dialog.classList.remove('fade-in');
+        dialog.classList.add('fade-out');
+        dialogSettings.classList.add('fade-out')
+        dialogSettings.classList.remove('fade-in')
 
-    setTimeout(() => {
-        dialog.close
-        dialogSettings.close();
-      }, 520);      
+        setTimeout(() => {
+            dialog.close();
+            dialogSettings.close(); // Ensure both dialogs are closed
+        }, 520);
+    });
 });
 
 function searchAndSort() {
